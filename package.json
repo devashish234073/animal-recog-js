@@ -1,0 +1,23 @@
+{
+  "name": "cicd-demo",
+  "version": "1.0.0",
+  "description": "This is a basic node application to demonstrate cicd using Github actions",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devashish234073/cicd-demo.git"
+  },
+  "keywords": [
+    "cicd",
+    "nodejs"
+  ],
+  "author": "Devashish Priyadarshi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/devashish234073/cicd-demo/issues"
+  },
+  "homepage": "https://github.com/devashish234073/cicd-demo#readme"
+}
