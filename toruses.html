@@ -1,0 +1,110 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r127/three.min.js"></script>
+  <script>
+    let scene, camera, renderer, cube;
+	let toruses = [];
+	let positions = [];
+    let material = new THREE.MeshBasicMaterial({
+      color: 0xffaf00,
+      wireframe: true,
+    });
+    let pi = Math.PI;
+
+    function createSphere(a0, a1) {
+      let sphereGeometry = new THREE.SphereGeometry(2, 40, 40, a0, a1);
+      sp = new THREE.Mesh(sphereGeometry, material);
+      return sp;
+    }
+	
+	function createTorus(a0, a1) {
+      let sphereGeometry = new THREE.TorusGeometry(0.6*Math.random(), 0.5*Math.random(), 30, 30, a0, a1);
+      sp = new THREE.Mesh(sphereGeometry, new THREE.MeshBasicMaterial({
+      color: Math.random()*0xffaf00,
+      wireframe: true,
+      }));
+      return sp;
+    }
+
+    function createCube() {
+      let cubeGeometry = new THREE.BoxGeometry(1, 1, 1);
+      cube = new THREE.Mesh(cubeGeometry, material);
+      return cube;
+    }
+
+    let init = function () {
+      scene = new THREE.Scene();
+      scene.background = new THREE.Color(0xfefefe);
+      camera = new THREE.PerspectiveCamera(
+        30,
+        window.innerWidth / window.innerHeight,
+        1,
+        1000
+      );
+      camera.position.z = 20;
+      camera.position.x = 3;
+	  /*let X = -3;
+	  let Y = -300;
+	  for(var i=0;i<100;i++){
+	    X+=0.6;
+		if(X>7){
+		  X = 0;
+		  Y+=0.5;
+		}
+	    var t = createTorus();
+		t.rotation.x = Math.abs(Math.random());
+		t.position.x = X;
+		t.position.y = Y;
+		scene.add(t);
+		toruses.push(t);
+		positions.push(5);
+	  }*/
+      renderer = new THREE.WebGLRenderer();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+
+      document.body.appendChild(renderer.domElement);
+    };
+    let tIndex = 0;
+	let tmp = 0;
+	let TO_PROCESS_PER_THREAD = 2;
+    let mainLoop = function () {
+      renderer.render(scene, camera);
+	  for(var i=0;i<toruses.length;i++){
+	    toruses[i].rotation.x += 0.1;
+		toruses[i].position.y -= 0.1;
+	  }
+	  var t = createTorus();
+	  t.rotation.x = Math.abs(Math.random());
+	  t.position.x = Math.random()*5;
+	  t.position.y = 5;
+	  scene.add(t);
+	  toruses.push(t);
+      requestAnimationFrame(mainLoop);
+    };
+
+    init();
+    mainLoop();
+    var cnv = document.querySelector("canvas");
+	var isMouseDown = false;
+	cnv.addEventListener("mousedown",function(){
+	  isMouseDown = true;
+	});
+	cnv.addEventListener("mouseup",function(){
+	  isMouseDown = false;
+	});
+    cnv.addEventListener("mousemove", function (evt) {
+      //camera.position.x = evt.clientX;
+      console.log(
+        "(" +
+          parseInt(0.02 * evt.clientX) +
+          "," +
+          parseInt(0.02 * evt.clientY) +
+          ")"
+      );
+	  if(isMouseDown){
+        camera.position.x = parseInt(0.02 * (window.innerWidth - evt.clientX));
+        camera.position.y = parseInt(0.02 * evt.clientY) - 5;
+	  }
+    });
+  </script>
+</body>
