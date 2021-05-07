@@ -15,7 +15,7 @@ jobs:
       - id: step2
         run: npm -v
       - id: step3
-        run: echo ${{name}}
+        run: echo java -v
   job2:
     runs-on: ubuntu-latest
     needs: job1
