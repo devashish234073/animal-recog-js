@@ -1,6 +1,6 @@
 name: Shell Commands for https://github.com/devashish234073/cicd-demo.git
 
-on: [push, pull]
+on: [push, pull_request]
 
 jobs:
   job1:
