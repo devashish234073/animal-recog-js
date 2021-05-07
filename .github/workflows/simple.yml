@@ -1,0 +1,15 @@
+name: Shell Commands for https://github.com/devashish234073/cicd-demo.git
+
+on: [push, pull]
+
+jobs:
+  run-shell-command:
+  runs-on: ubuntu-latest
+  steps:
+    - name: echo a string
+    run: echo "Hello There"
+    -name: multiline script
+    run: |
+    node -v
+    npm -v
+    java --version
