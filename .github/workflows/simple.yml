@@ -11,9 +11,11 @@ jobs:
       output2: ${{ steps.step2.outputs.test }}
     steps:
       - id: step1
-        run: echo "::set-output name=test::hello"
+        run: node -v
       - id: step2
-        run: echo "::set-output name=test::world"
+        run: npm -v
+      - id: step3
+        run: echo ${{name}}
   job2:
     runs-on: ubuntu-latest
     needs: job1
